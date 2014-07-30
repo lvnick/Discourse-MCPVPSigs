@@ -1,37 +1,25 @@
+
+import { Button } from "discourse/views/post-menu";
+
 export default {
-	name: "signature",
+  name: "hide-posts",
 
-	initialize: function (container) {
-		var PostMenuView = container.lookupFactory("view:post-menu");
+  initialize: function (container) {
+    var PostMenuView = container.lookupFactory("view:post-menu");
 
-		PostMenuView.reopen({      
-			
-			render: function(buffer) {
-				var post = this.get('post');
+    PostMenuView.reopen({
+      shouldRerenderHideButton: Discourse.View.renderIfChanged("post.temporarily_hidden"),
 
-				buffer.push("<nav class='post-controls'>");
-				this.renderReplies(post, buffer);
-				this.renderButtons(post, buffer);
-				this.renderAdminPopup(post, buffer);
-				buffer.push("</nav>");
+      buttonForHide: function (post, buffer) {
+        var direction = !!post.getWithDefault("temporarily_hidden", false) ? "down" : "up";
+        return new Button("hide", direction, "chevron-" + direction);
+      },
 
-				this.renderSignature(post, buffer);
-			},
+      clickHide: function () {
+        $("#post_" + this.get("post.post_number") + " .cooked").toggle();
+        this.toggleProperty("post.temporarily_hidden");
+      }
+    });
 
-			renderSignature: function(post, buffer) {
-				$.ajax({
-					type: "GET",
-					url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
-					async: false,
-					success : function(data) {
-						if (data != "")
-						{
-							buffer.push("<div><hr />" + data + "<hr /></div>")
-						}
-					}
-				});
-			}
-		});
-
-	}
+  }
 };
