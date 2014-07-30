@@ -5,6 +5,7 @@ export default {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
 		var loadSignature = function(post){
+			debugger;
 			console.log("Load signature: " + post);
 		};
 
