@@ -4,10 +4,10 @@ export default {
 	initialize: function (container) {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
-		var loadSignature = function($post){			
+		var loadSignature = function(post){			
 			if (Discourse.User.current() != null)
 			{
-				var postid = $post.prop("data-post-id");
+				var postid = $(post).prop("data-post-id");
 				var elem = $('#sig_' + postid);	
 				
 				console.log("PostID: " + postid);							
