@@ -4,6 +4,12 @@ export default {
 	initialize: function (container) {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
+		var loadSignature = function(post){
+			console.log("Load signature: " + post);
+		};
+
+		Discourse.PostView.prototype.on("postViewInserted", loadSignature);
+
 		PostMenuView.reopen({      
 			
 			render: function(buffer) {
