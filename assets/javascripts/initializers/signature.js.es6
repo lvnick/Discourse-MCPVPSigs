@@ -8,13 +8,14 @@ export default {
 			if (Discourse.User.current() != null)
 			{
 				var postid = $post.prop("data-post-id");
-				var elem = $post.find('#sig_' + postid);
+				var elem = $('#sig_' + postid);
+				var user = $(elem).prop("data-user");
 
 				if (elem != null)
 				{
 					$.ajax({
 						type: "GET",
-						url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
+						url: "http://www.minecraftpvp.com/profile/signature/" + user,
 						async: true,
 						success : function(data) {
 							if (data != null && data != "" && $.trim(data) != "")
@@ -47,7 +48,7 @@ export default {
 			renderSignature: function(post, buffer) {
 				if (Discourse.User.current() != null)
 				{
-					buffer.push("<div style='clear:both' id='sig_" + post.get('id') + "'></div>");					
+					buffer.push("<div style='clear:both' id='sig_" + post.get('id') + "' data-user='" + post.get('username') + "'></div>");					
 				}
 			}
 		});
