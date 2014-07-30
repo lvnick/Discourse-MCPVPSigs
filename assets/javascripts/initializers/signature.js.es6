@@ -12,9 +12,10 @@ export default {
 				buffer.push("<nav class='post-controls'>");
 				this.renderReplies(post, buffer);
 				this.renderButtons(post, buffer);
-				this.renderAdminPopup(post, buffer);
-				this.renderSignature(post, buffer);
+				this.renderAdminPopup(post, buffer);				
 				buffer.push("</nav>");
+
+				this.renderSignature(post, buffer);
 				
 			},
 
@@ -26,7 +27,7 @@ export default {
 					success : function(data) {
 						if (data != "")
 						{
-							buffer.push("<div><hr />" + data + "<hr /></div>")
+							buffer.push("<div style='clear:both'><hr />" + data + "<hr /></div>")
 						}
 					}
 				});
