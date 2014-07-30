@@ -4,9 +4,8 @@ export default {
 	initialize: function (container) {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
-		var loadSignature = function(post){
-			debugger;
-			console.log("Load signature: " + post);
+		var loadSignature = function(post){			
+			console.log("Load signature: " + JSON.parse(JSON.stringify(post)));
 		};
 
 		Discourse.PostView.prototype.on("postViewInserted", loadSignature);
