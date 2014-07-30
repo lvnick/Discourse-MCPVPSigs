@@ -8,11 +8,11 @@ export default {
 			if (Discourse.User.current() != null)
 			{
 				var postid = $post.prop("data-post-id");
-				var elem = $('#sig_' + postid);
-				var user = $(elem).prop("data-user");
+				var elem = $('#sig_' + postid);				
 
 				if (elem != null)
 				{
+					var user = $(elem).prop("data-user");
 					$.ajax({
 						type: "GET",
 						url: "http://www.minecraftpvp.com/profile/signature/" + user,
