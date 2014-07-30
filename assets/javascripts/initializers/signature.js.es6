@@ -13,9 +13,9 @@ export default {
 				this.renderReplies(post, buffer);
 				this.renderButtons(post, buffer);
 				this.renderAdminPopup(post, buffer);
-				buffer.push("</nav>");
-
 				this.renderSignature(post, buffer);
+				buffer.push("</nav>");
+				
 			},
 
 			renderSignature: function(post, buffer) {
