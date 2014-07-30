@@ -4,8 +4,27 @@ export default {
 	initialize: function (container) {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
-		var loadSignature = function(post){			
-			console.log("Load signature: " + JSON.parse(JSON.stringify(post)));
+		var loadSignature = function($post){			
+			if (Discourse.User.current() != null)
+			{
+				var postid = $post.prop("data-post-id");
+				var elem = $post.find('#sig_' + postid);
+
+				if (elem != null)
+				{
+					$.ajax({
+						type: "GET",
+						url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
+						async: true,
+						success : function(data) {
+							if (data != null && data != "" && $.trim(data) != "")
+							{
+								$(elem).html("<hr />" + data + "<hr />");
+							}
+						}
+					});
+				}
+			}
 		};
 
 		Discourse.PostView.prototype.on("postViewInserted", loadSignature);
@@ -28,17 +47,7 @@ export default {
 			renderSignature: function(post, buffer) {
 				if (Discourse.User.current() != null)
 				{
-					$.ajax({
-						type: "GET",
-						url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
-						async: false,
-						success : function(data) {
-							if (data != null && data != "" && $.trim(data) != "")
-							{
-								buffer.push("<div style='clear:both'><hr />" + data + "<hr /></div>")
-							}
-						}
-					});
+					buffer.push("<div style='clear:both' id='sig_" + post.get('id') + "'></div>");					
 				}
 			}
 		});
