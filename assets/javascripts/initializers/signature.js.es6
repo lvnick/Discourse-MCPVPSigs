@@ -20,17 +20,20 @@ export default {
 			},
 
 			renderSignature: function(post, buffer) {
-				$.ajax({
-					type: "GET",
-					url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
-					async: false,
-					success : function(data) {
-						if (data != "")
-						{
-							buffer.push("<div style='clear:both'><hr />" + data + "<hr /></div>")
+				if (Discourse.User.current() != null)
+				{
+					$.ajax({
+						type: "GET",
+						url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
+						async: false,
+						success : function(data) {
+							if (data != null && data != "")
+							{
+								buffer.push("<div style='clear:both'><hr />" + data + "<hr /></div>")
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 		});
 
