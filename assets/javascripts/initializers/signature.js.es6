@@ -27,7 +27,7 @@ export default {
 						url: "http://www.minecraftpvp.com/profile/signature/" + post.get('username'),
 						async: false,
 						success : function(data) {
-							if (data != null && data != "" && /\S/.test(myString))
+							if (data != null && data != "" && $.trim(data) != "")
 							{
 								buffer.push("<div style='clear:both'><hr />" + data + "<hr /></div>")
 							}
