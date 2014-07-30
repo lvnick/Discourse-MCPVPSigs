@@ -8,22 +8,30 @@ export default {
 			if (Discourse.User.current() != null)
 			{
 				var postid = $post.prop("data-post-id");
-				var elem = $('#sig_' + postid);				
+				var elem = $('#sig_' + postid);	
+				
+				console.log("PostID: " + postid);							
 
 				if (elem != null)
-				{
+				{					
 					var user = $(elem).prop("data-user");
+					console.log("Elem found, user: " + user);
 					$.ajax({
 						type: "GET",
 						url: "http://www.minecraftpvp.com/profile/signature/" + user,
-						async: true,
+						async: false,
 						success : function(data) {
 							if (data != null && data != "" && $.trim(data) != "")
 							{
+								console.log(data);
 								$(elem).html("<hr />" + data + "<hr />");
 							}
 						}
 					});
+				}
+				else
+				{
+					console.log("Elem not found.");
 				}
 			}
 		};
