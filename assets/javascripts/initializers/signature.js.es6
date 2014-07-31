@@ -7,7 +7,8 @@ export default {
 		var loadSignature = function(post){			
 			if (Discourse.User.current() != null)
 			{
-				var postid = $(post).prop("data-post-id");
+				var articleElem =  $(post).find("article");
+				var postid = $(articleElem).prop("data-post-id");
 				var elem = $('#sig_' + postid);	
 				
 				console.log("PostID: " + postid);							
