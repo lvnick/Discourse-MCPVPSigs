@@ -36,7 +36,10 @@ export default {
 			}
 		};
 
-		Discourse.PostView.prototype.on("postViewInserted", loadSignature);
+		if (typeof(Discourse.PostView.prototype.on) == "function")
+		{
+			Discourse.PostView.prototype.on("postViewInserted", loadSignature);
+		}
 
 		PostMenuView.reopen({      
 			
