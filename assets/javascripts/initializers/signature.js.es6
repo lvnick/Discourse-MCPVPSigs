@@ -8,14 +8,14 @@ export default {
 			if (Discourse.User.current() != null)
 			{
 				var articleElem =  $(post).find("article");
-				var postid = $(articleElem).prop("data-post-id");
+				var postid = $(articleElem).attr("data-post-id");
 				var elem = $('#sig_' + postid);	
 				
 				console.log("PostID: " + postid);							
 
 				if (elem != null)
 				{					
-					var user = $(elem).prop("data-user");
+					var user = $(elem).attr("data-user");
 					console.log("Elem found, user: " + user);
 					$.ajax({
 						type: "GET",
