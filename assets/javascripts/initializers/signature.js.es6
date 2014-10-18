@@ -5,36 +5,64 @@ export default {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
 		var loadSignature = function(post){			
-			//if (Discourse.User.current() != null)
-			//{
-				var articleElem =  $(post).find("article");
-				var postid = $(articleElem).attr("data-post-id");
-				var elem = $('#sig_' + postid);	
+			if (Discourse.User.current() != null)
+			{
+				//var articleElem =  $(post).find("article");
+				//var postid = $(articleElem).attr("data-post-id");
+				
+				$(".signature").each(function (){
+					var elem = $(this);
+
+					if (elem != null)
+					{					
+						var user = $(elem).attr("data-user");
+						//console.log("Elem found, user: " + user);
+						$.ajax({
+							type: "GET",
+							url: "http://www.minecraftpvp.com/profile/signature/" + user,
+							async: true,
+							success : function(data) {
+								if (data != null && data != "" && $.trim(data) != "")
+								{
+									//console.log(data);
+									$(elem).html("<hr />" + data + "<hr />");
+								}
+							}
+						});
+					}
+					else
+					{
+						//console.log("Elem not found.");
+					}
+
+				});
+
+				//var elem = $('#sig_' + postid);	
 				
 				//console.log("PostID: " + postid);							
 
-				if (elem != null)
-				{					
-					var user = $(elem).attr("data-user");
+				//if (elem != null)
+				//{					
+				//	var user = $(elem).attr("data-user");
 					//console.log("Elem found, user: " + user);
-					$.ajax({
-						type: "GET",
-						url: "http://www.minecraftpvp.com/profile/signature/" + user,
-						async: true,
-						success : function(data) {
-							if (data != null && data != "" && $.trim(data) != "")
-							{
+				//	$.ajax({
+				//		type: "GET",
+				//		url: "http://www.minecraftpvp.com/profile/signature/" + user,
+				//		async: true,
+				//		success : function(data) {
+				//			if (data != null && data != "" && $.trim(data) != "")
+				//			{
 								//console.log(data);
-								$(elem).html("<hr />" + data + "<hr />");
-							}
-						}
-					});
-				}
-				else
-				{
+				//				$(elem).html("<hr />" + data + "<hr />");
+				//			}
+				//		}
+				//	});
+				//}
+				//else
+				//{
 					//console.log("Elem not found.");
-				}
-			//}
+				//}
+			}
 		};
 
 		if (typeof(Discourse.PostView.prototype.on) == "function")
@@ -60,7 +88,7 @@ export default {
 			renderSignature: function(post, buffer) {
 				if (Discourse.User.current() != null)
 				{
-					buffer.push("<div style='clear:both' id='sig_" + post.get('id') + "' data-user='" + post.get('username') + "'></div>");					
+					buffer.push("<div style='clear:both' class='signature' id='sig_" + post.get('id') + "' data-user='" + post.get('username') + "'></div>");					
 				}
 			}
 		});
