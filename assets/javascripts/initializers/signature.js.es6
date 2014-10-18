@@ -5,8 +5,8 @@ export default {
 		var PostMenuView = container.lookupFactory("view:post-menu");
 
 		var loadSignature = function(post){			
-			if (Discourse.User.current() != null)
-			{
+			//if (Discourse.User.current() != null)
+			//{
 				var articleElem =  $(post).find("article");
 				var postid = $(articleElem).attr("data-post-id");
 				var elem = $('#sig_' + postid);	
@@ -34,7 +34,7 @@ export default {
 				{
 					//console.log("Elem not found.");
 				}
-			}
+			//}
 		};
 
 		if (typeof(Discourse.PostView.prototype.on) == "function")
