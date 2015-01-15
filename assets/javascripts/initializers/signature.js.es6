@@ -19,7 +19,7 @@ export default {
 						//console.log("Elem found, user: " + user);
 						$.ajax({
 							type: "GET",
-							url: "http://www.minecraftpvp.com/profile/signature/" + user,
+							url: "https://www.minecraftpvp.com/profile/signature/" + user,
 							async: true,
 							success : function(data) {
 								if (data != null && data != "" && $.trim(data) != "")
