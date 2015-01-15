@@ -67,10 +67,10 @@ export default {
 
 		if (typeof(Discourse.PostView.prototype.on) == "function")
 		{
-			
+			Discourse.PostView.prototype.on("postViewInserted", loadSignature);	
 		}
 		
-		Discourse.PostView.prototype.on("postViewInserted", loadSignature);
+		
 
 		PostMenuView.reopen({      
 			
